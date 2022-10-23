@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10-tenth</title>
+    <link rel="stylesheet" href="./dz10.css" />
+    <script src="./dz10.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>js-pro-homework-10</h1>
+      <h2>DOM-2 / contact table</h2>
+    </header>
+    <main id="main">
+      <div>
+        <br />
+        <!-- N a m e: -->
+        <input
+          id="inputName"
+          value="first name"
+          type="text"
+          style="color: grey"
+          name="first_name"
+        />
+        <!--<br /><br />
+               Surname: -->
+        <input
+          id="inputSurname"
+          value="last name"
+          type="text"
+          name="last_name"
+        />
+        <!-- <br /><br />
+              P h o n e: -->
+        <input
+          id="inputPhone"
+          value="0123456789"
+          type="number"
+          name="user_phone"
+        />
+        <button id="btnOne">Submit</button>
+      </div>
+    </main>
+
+    <script id="templateContactList" type="text/template">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4">List of contacts</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Phone</td>
+            <td>Actions</td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10-tenth</title>
+    <link rel="stylesheet" href="./dz11-x.css" />
+    <script src="./dz11-x.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>js-pro-homework-11</h1>
+      <h2>DOM-3 / contact list</h2>
+    </header>
+    <main id="main">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4">List of contacts</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Phone</td>
+            <td>Actions</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>
+        <br />
+        <!-- N a m e: -->
+        <input
+          id="inputName"
+          class="input-el"
+          placeholder="first name"
+          type="text"
+          name="name"
+        />
+        <!--<br /><br />
+               Surname: -->
+        <input
+          id="inputSurname"
+          class="input-el"
+          placeholder="last name"
+          type="text"
+          name="suname"
+        />
+        <!-- <br /><br />
+              P h o n e: -->
+        <input
+          id="inputPhone"
+          class="input-el"
+          placeholder="0123456789"
+          type="number"
+          name="phone"
+        />
+        <button id="btnOne">Submit</button>
+      </div>
+    </main>
+
+    <script id="todoRowTemplate" type="text/template">
+      <tr id="trNew">
+              <td id="tdNameNew">${newName}</td>
+              <td id="tdSuameNew">${newSurname}</td>
+              <td id="tdPhoneNew"><a href="tel:${newPhone}">${newPhone}</a></td>
+              <td id="tdActinsNew"><button id="btnDel">Del</button></td>
+          </tr>
+    </script>
+  </body>
+</html>

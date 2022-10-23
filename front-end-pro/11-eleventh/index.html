@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>11-eleventh</title>
+    <link rel="stylesheet" href="./dz11.css" />
+    <script src="./dz11.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>js-pro-homework-11</h1>
+      <h2>DOM-3</h2>
+    </header>
+    <main>
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">List of color-del</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <td>Name</td>
+            <td>Actions</td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <input
+          id="inputComment"
+          placeholder="input text"
+          style="color: grey"
+          type="text"
+        />
+        <button id="btnAdd" style="color: grey; background-color: white">
+          Push
+        </button>
+      </div>
+    </main>
+    <script id="todoRowTemplate" type="text/template">
+      <tr class="trNewRow">
+              <td class="tdNewEl">{{newName}}</td>
+              <td class="tdNewBtn"><button class="btnDel">Del</button></td>
+          </tr>
+    </script>
+  </body>
+</html>
