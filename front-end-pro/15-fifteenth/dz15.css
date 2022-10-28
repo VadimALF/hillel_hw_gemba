@@ -1,0 +1,25 @@
+.tabs-item-button {
+    background: white;
+    border: 2px solid darkred;
+    width: 100px;
+}
+
+.tabs-item-button-open {
+    background: yellow;
+    border-bottom-color: yellow;
+}
+
+
+.tabs-item-content {
+    height: 100px;
+    display: none;
+    width: 300px;
+}
+
+.open {
+    background: yellow;
+    display: flex;
+    width: 304px; 
+    border: 2px solid darkred;
+    border-top-color: yellow;
+}
