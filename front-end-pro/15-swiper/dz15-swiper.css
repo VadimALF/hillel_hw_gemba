@@ -1,0 +1,56 @@
+h1 {
+text-align: center;
+}
+
+.swiper-item {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: black;
+    color: black;
+    border: 1px solid blue;
+    background-position: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+#swiper div {
+    height: 200px;
+    width: 300px;
+    object-fit: cover;
+    border: 1px solid white;
+}
+
+#swiper div img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.swiper-item-button-active {
+    border: 1px solid black;
+    background: black;
+    margin: auto;
+    color: white;
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.swiper-item-button-inactive {
+    border: 1px solid black;
+    background: black;
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    color: #0f0f0f;
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.swiper-item-img-close {
+    display: none;
+}
+
+.swiper-item-img-open {
+    width: 90%;
+}
