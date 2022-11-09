@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>17-seventeenth</title>
+    <link rel="stylesheet" href="./dz17.css" />
+    <script src="./dz17.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>js-pro-homework-17</h1>
+      <h2>Todo list + server</h2>
+    </header>
+    <main>
+      <table class="table">
+        <thead id="tabList">
+          <tr>
+            <th colspan="5">List of todo elements</th>
+          </tr>
+        </thead>
+      </table>
+      <div>
+        <input
+          id="inputComment"
+          placeholder="input text"
+          style="color: grey"
+          type="text"
+        />
+        <button id="btnAdd" style="color: grey; background-color: white">
+          Push
+        </button>
+      </div>
+    </main>
+    <script id="todoRowTemplate" type="text/template">
+      <tr class="trNewRow" data-id="{{todoId}}">
+              <td class="tdNewId">{{newId}}</td>
+              <td class="tdNewTitle">{{newTitle}}</td>
+              <td class="tdNewDone">{{newDone}}</td>
+              <td class="tdNewEditBtn"><button class="btnEdit">Edit</button></td>
+              <td class="tdNewDelBtn"><button class="btnDel">Del</button></td>
+          </tr>
+    </script>
+    <script id="todoTheadTemplate" type="text/template">
+          <tbody id="tableTodoList" class="tab-header">
+        <tr>
+          <td>ID</td>
+          <td>Title</td>
+          <td>Done</td>
+          <td colspan="2">Actions</td>
+        </tr>
+      </tbody>
+    </script>
+  </body>
+</html>

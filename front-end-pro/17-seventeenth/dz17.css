@@ -1,0 +1,28 @@
+table,
+td {
+    border: 1px solid #333;
+}
+
+thead
+ {
+    background-color: blue;
+    color: #fff;
+}
+
+.tab-header .trNewRow {
+    color: black;
+    background-color: white
+}
+
+.btnEdit{
+    background-color: yellowgreen
+}
+
+.btnDel{
+    color: white;
+    background-color: red
+}
+
+.tab-header {
+    background-color: yellow
+}
