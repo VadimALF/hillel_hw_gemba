@@ -3,44 +3,44 @@
 const SUBMIT_BUTTON_ID = 'btnSubmit'
 const DELETE_BTN_CLASS = 'btnDel'
 const EDIT_BTN_CLASS = 'btnEdit'
-const TODO_ITEM_SELECTOR = '.todoItem'
+const CONTACTS_ITEM_SELECTOR = '.contactsItem'
 
 const idInput = document.querySelector('#idInput')
 const inputName = document.querySelector('#inputName')
 const inputSurname = document.querySelector('#inputSurname')
 const inputPhone = document.querySelector('#inputPhone')
 const btnSubmitEl = document.querySelector('#btnSubmit')
-const todoForm = document.querySelector('#todoForm')
-let tableTodoList = document.querySelector('#tableTodoList')
-let todoList = []
+const contactsForm = document.querySelector('#contactsForm')
+let tableContactsList = document.querySelector('#tableContactsList')
+let contactsList = []
 
-todoForm.addEventListener('submit', onTodoFormSubmit)
-tableTodoList.addEventListener('click', onTodoListClick)
+contactsForm.addEventListener('submit', onContactsFormSubmit)
+tableContactsList.addEventListener('click', onContactsListClick)
 
 
-getTodoList()
+getContactsList()
 
-function getTodoList() {
-    TodoApi.getList()
-        .then(list => todoList = list)
-        .then((todoList) => {
-            renderTodoList(todoList)
+function getContactsList() {
+    ContactsApi.getList()
+        .then(list => contactsList = list)
+        .then((contactsList) => {
+            renderContactsList(contactsList)
         })
         .catch(showError)
 }
 
-function renderTodoList(todoList) {
-  const html = todoList.map(generateTodoItemHTML).join('');
-  tableTodoList.innerHTML = html;
+function renderContactsList(contactsList) {
+  const html = contactsList.map(generateContactsItemHTML).join('');
+  tableContactsList.innerHTML = html;
 }
 
-function generateTodoItemHTML(todo) {
+function generateContactsItemHTML(contacts) {
   return `
-    <tr class="todoItem" data-id="${todo.id}">
-            <td class="tdIdNew">${todo.id}</td>
-            <td class="tdNameNew">${todo.firstName}</td>
-            <td class="tdSuameNew">${todo.lastName}</td>
-            <td class="tdPhoneNew"><a href="tel:${todo.phone}">${todo.phone}</a></td>
+    <tr class="contactsItem" data-id="${contacts.id}">
+            <td class="tdIdNew">${contacts.id}</td>
+            <td class="tdNameNew">${contacts.firstName}</td>
+            <td class="tdSuameNew">${contacts.lastName}</td>
+            <td class="tdPhoneNew"><a href="tel:${contacts.phone}">${contacts.phone}</a></td>
             <td class="tdEditBtn"><button class="btnEdit">Edit</button></td>
             <td class="tdDelBtn"><button class="btnDel">Del</button></td>
         </tr>
@@ -51,25 +51,25 @@ function showError(error) {
   alert(error.message);
 }
 
-function onTodoFormSubmit(e) {
+function onContactsFormSubmit(e) {
     e.preventDefault()
 
-    const todo = getTodo()
-    let todoOut = {
+    const contacts = getContacts()
+    let contactsOut = {
         firstName: inputName.value,
         lastName: inputSurname.value,
         phone: inputPhone.value,
         id: idInput.value
     }
     idInput.value = ''
-    if (checkValue(todoOut)) {
-        saveTodo(todoOut)
+    if (checkValue(contactsOut)) {
+        saveContacts(contactsOut)
     }
     else {
         alert('Заповніть будь ласка форму.\nПоля не повинні бути порожні.\n' +
             'номер телефону 0123456789 неприпустимо')
     }
-    todoForm.reset()
+    contactsForm.reset()
 }
 
 function onInputNameClick () {
@@ -87,88 +87,88 @@ function onInputPhoneClick () {
     inputPhone.value = ''
 }
 
-function checkValue(todoOut) {
-    return (todoOut.firstName !== ''
-        && todoOut.lastName !== ''
-        && todoOut.phone !== '')
+function checkValue(contactsOut) {
+    return (contactsOut.firstName !== ''
+        && contactsOut.lastName !== ''
+        && contactsOut.phone !== '')
 }
 
-function onTodoListClick(e){
-  const todoEl = getTodoEl(e.target);
-  const id = getTodoId(todoEl);
-  const todo = todoList.find(todoItem => todoItem.id === id);
+function onContactsListClick(e){
+  const contactsEl = getContactsEl(e.target);
+  const id = getContactsId(contactsEl);
+  const contacts = contactsList.find(contactsItem => contactsItem.id === id);
     
-  if (todo) {
+  if (contacts) {
     if (e.target.classList.contains(DELETE_BTN_CLASS)) {
-      TodoApi.delete(id)
-        .then(() => getTodoList())
+      ContactsApi.delete(id)
+        .then(() => getContactsList())
         .catch(showError)
         
-      todoEl.remove();
+      contactsEl.remove();
       return;
     }
       if (e.target.classList.contains(EDIT_BTN_CLASS)) {
-      fillForm(todo);
+      fillForm(contacts);
       return;
     }
   }
 }
 
-function getTodoEl(el) {
-  return el.closest(TODO_ITEM_SELECTOR);
+function getContactsEl(el) {
+  return el.closest(CONTACTS_ITEM_SELECTOR);
 }
 
-function getTodoId(todoEl) {
-  return todoEl.dataset.id;
+function getContactsId(contactsEl) {
+  return contactsEl.dataset.id;
 }
 
-function fillForm(todo) {
-    idInput.value = todo.id
-    inputName.value = todo.firstName
-    inputSurname.value = todo.lastName
-    inputPhone.value = todo.phone
+function fillForm(contacts) {
+    idInput.value = contacts.id
+    inputName.value = contacts.firstName
+    inputSurname.value = contacts.lastName
+    inputPhone.value = contacts.phone
 }
 
-function saveTodo(todo) {
-  if (todo.id) {
-      TodoApi.update(todo.id, todo)
-          .then(() => getTodoList())
+function saveContacts(contacts) {
+  if (contacts.id) {
+      ContactsApi.update(contacts.id, contacts)
+          .then(() => getContactsList())
           .catch(showError)
 
-    const todoOld = todoList.find(todoI => todoI.id === todo.id)
-      todoOld.firstName = todo.firstName
-      todoOld.lastName = todo.lastName
-      todoOld.phone =todo.phone
+    const contactsOld = contactsList.find(contactsI => contactsI.id === contacts.id)
+      contactsOld.firstName = contacts.firstName
+      contactsOld.lastName = contacts.lastName
+      contactsOld.phone =contacts.phone
 
-    replaceTodoElById(todo.id, todo);
+    replaceContactsElById(contacts.id, contacts);
   } else {
-    TodoApi.create(todo)
-      .then(() => getTodoList())
+    ContactsApi.create(contacts)
+      .then(() => getContactsList())
       .catch(showError)
       
-    addTodoItem(todo)
+    addContactsItem(contacts)
   }
 }
 
-function replaceTodoElById(id, todo) {
-  const oldTodoEl = document.querySelector(`[data-id="${id}"]`);
-  const newTodoEl = generateTodoItemHTML(todo);
+function replaceContactsElById(id, contacts) {
+  const oldContactsEl = document.querySelector(`[data-id="${id}"]`);
+  const newContactsEl = generateContactsItemHTML(contacts);
 
-  oldTodoEl.outerHTML = newTodoEl;
+  oldContactsEl.outerHTML = newContactsEl;
 }
 
-function getTodo() {
+function getContacts() {
   const id = idInput.value;
-  const todo = todoList.find(todoI => todoI.id === id) || {};
+  const contacts = contactsList.find(contactsI => contactsI.id === id) || {};
   return {
-    ...todo,
+    ...contacts,
     firstName: inputName.value,
     lastName: inputSurname.value,
     phone: inputPhone.value,  };
 }
 
-function addTodoItem(todo) {
-  const html = generateTodoItemHTML(todo);
+function addContactsItem(contacts) {
+  const html = generateContactsItemHTML(contacts);
 
-  tableTodoList.insertAdjacentHTML('beforeend', html);
+  tableContactsList.insertAdjacentHTML('beforeend', html);
 }
