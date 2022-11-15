@@ -3,7 +3,7 @@
 const GALLERY = '#gallery'
 const ALBUMS_LIST = '#albumsList'
 const ALBUM_PHOTOS = '#albumPhotos'
-const START_ALBUM = 0
+const START_ALBUM = 4
 let i = 0
 let albumId
 
@@ -28,7 +28,7 @@ function userChoose(el) {
 }
 
 function getGallery() {
-    GalleryApi.getAlbumsList()
+    GalleryApi.getAlbumList(GalleryApi.URL_ALBUMS)
         .then(album => renderGallery(album))
 
         .catch(showError)
@@ -60,7 +60,7 @@ function showError(error) {
 }
 
 function getAlbum() {
-    GalleryApi.getAlbum(albumId)
+    GalleryApi.getAlbumList(`${GalleryApi.URL_ALBUM_ID}${albumId}`)
         .then(element => renderAlbum(element))
 
         .catch(showError)
