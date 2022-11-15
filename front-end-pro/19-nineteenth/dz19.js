@@ -3,9 +3,10 @@
 const GALLERY = '#gallery'
 const ALBUMS_LIST = '#albumsList'
 const ALBUM_PHOTOS = '#albumPhotos'
-const URL_ALBUMS = 'https://jsonplaceholder.typicode.com/albums'
-const URL_ALBUM_ID = 'https://jsonplaceholder.typicode.com/photos?albumId='
-let albumId = '1'
+const START_ALBUM = 0
+let i = 0
+let albumId
+
 
 const gallery = document.querySelector(GALLERY)
 const albumsList = document.querySelector(ALBUMS_LIST)
@@ -14,7 +15,6 @@ const albumPhotos = document.querySelector(ALBUM_PHOTOS)
 gallery.addEventListener('click', onGalleryClick)
 
 getGallery()
-getAlbum()
 
 function onGalleryClick(e) {
     userChoose(e.target)  
@@ -28,19 +28,31 @@ function userChoose(el) {
 }
 
 function getGallery() {
-    GalleryApi.getAlbum(URL_ALBUMS)
+    GalleryApi.getAlbumsList()
         .then(album => renderGallery(album))
 
         .catch(showError)
 }
 
 function renderGallery(galleryList) {
+    
     const html = galleryList.map(generateGalleryItemHTML).join('')
     albumsList.innerHTML = html
+    getAlbum()
 }
 
 function generateGalleryItemHTML(albums) {
-    return `<li class="album" data-id="${albums.id}">${albums.title}</li>`
+    if (albums.id) {
+        if (i === START_ALBUM) {
+            albumId = findFirstAlbum(albums)
+        }
+        i++
+        return `<li class="album" data-id="${albums.id}">${albums.title}</li>`
+    }
+}
+
+function findFirstAlbum(album) {
+    return album.id
 }
 
 function showError(error) {
@@ -48,7 +60,7 @@ function showError(error) {
 }
 
 function getAlbum() {
-    GalleryApi.getAlbum(`${URL_ALBUM_ID}${albumId}`)
+    GalleryApi.getAlbum(albumId)
         .then(element => renderAlbum(element))
 
         .catch(showError)
