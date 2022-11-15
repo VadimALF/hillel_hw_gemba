@@ -3,10 +3,7 @@
 const GALLERY = '#gallery'
 const ALBUMS_LIST = '#albumsList'
 const ALBUM_PHOTOS = '#albumPhotos'
-const START_ALBUM = 4
-let i = 0
-let albumId
-
+const START_ALBUM = 0
 
 const gallery = document.querySelector(GALLERY)
 const albumsList = document.querySelector(ALBUMS_LIST)
@@ -22,8 +19,7 @@ function onGalleryClick(e) {
 
 function userChoose(el) {
     if (el.classList.contains('album')) {
-        albumId = el.dataset.id
-        getAlbum()
+        getAlbum(el.dataset.id)
     }
 }
 
@@ -35,32 +31,21 @@ function getGallery() {
 }
 
 function renderGallery(galleryList) {
-    
     const html = galleryList.map(generateGalleryItemHTML).join('')
     albumsList.innerHTML = html
-    getAlbum()
+    getAlbum(galleryList[START_ALBUM].id)
 }
 
 function generateGalleryItemHTML(albums) {
-    if (albums.id) {
-        if (i === START_ALBUM) {
-            albumId = findFirstAlbum(albums)
-        }
-        i++
         return `<li class="album" data-id="${albums.id}">${albums.title}</li>`
-    }
-}
-
-function findFirstAlbum(album) {
-    return album.id
 }
 
 function showError(error) {
   alert(error.message);
 }
 
-function getAlbum() {
-    GalleryApi.getAlbumList(`${GalleryApi.URL_ALBUM_ID}${albumId}`)
+function getAlbum(id) {
+    GalleryApi.getAlbumList(`${GalleryApi.URL_ALBUM_ID}${id}`)
         .then(element => renderAlbum(element))
 
         .catch(showError)
