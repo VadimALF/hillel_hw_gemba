@@ -1,0 +1,47 @@
+table,
+td {
+    border: 1px solid #333;
+}
+
+thead th {
+    background-color: blue;
+    color: white;
+}
+
+input {
+    color: gray;
+}
+
+thead td {
+    color: blue;
+    background-color: yellow
+}
+
+#tbody .trNew {
+    color: black;
+    background-color: white
+}
+
+#btnAdd {
+    color: blue;
+    background-color: yellow
+}
+
+.btnEdit {
+    background-color: yellowgreen
+}
+
+.btnDel {
+    background-color: red
+}
+
+#contactsForm input {
+font-size: 1.2em;
+    color: black;
+}
+
+input::placeholder {
+    color: gray;
+    font-style: italic;
+}
+
