@@ -1,8 +1,8 @@
 'use strict'
 
 const ADD_BUTTON_ID = '#btnAdd'
-const DELETE_BTN_CLASS = 'btnDel'
-const EDIT_BTN_CLASS = 'btnEdit'
+const DELETE_BTN_CLASS = '.btnDel'
+const EDIT_BTN_CLASS = '.btnEdit'
 const CONTACTS_ITEM_SELECTOR = '.contactsItem'
 const FIRST_FORM = 0
 
@@ -44,21 +44,20 @@ const dialog = $( "#dialog-form" ).dialog({
         }
       })
 
-
-
 $btnAddEl.on('click', onBtnAddClick)
-$tableContactsList.on('click', onContactsListClick)
-
+$tableContactsList
+  .on('click', DELETE_BTN_CLASS, onDelBtnClick)
+  .on('click', EDIT_BTN_CLASS, onEditBtnClick)
 
 getContactsList()
 
 function getContactsList() {
-    ContactsApi.getList()
-        .then(list => contactsList = list)
-        .then((contactsList) => {
-            renderContactsList(contactsList)
-        })
-        .catch(showError)
+  ContactsApi.getList()
+    .then(list => contactsList = list)
+    .then((contactsList) => {
+        renderContactsList(contactsList)
+    })
+    .catch(showError)
 }
 
 function renderContactsList(contactsList) {
@@ -92,40 +91,45 @@ function checkValue(contactsOut) {
         && contactsOut.phone !== '')
 }
 
-function onContactsListClick(e){
-  const contactsEl = getContactsEl(e.target)
-  const id = getContactsId(contactsEl)
-  const contacts = contactsList.find(contactsItem => contactsItem.id === id)
+function onDelBtnClick() {
+  const $contactEl = getContactEl($(this))
+  const id = String(getContactId($contactEl))
+  const contact = contactsList.find(contactItem => contactItem.id === id)
+
+  if (contact) {
+    ContactsApi.delete(id)
+      .then(() => getContactsList())
+      .catch(showError)
     
-  if (contacts) {
-    if (e.target.classList.contains(DELETE_BTN_CLASS)) {
-      ContactsApi.delete(id)
-        .then(() => getContactsList())
-        .catch(showError)
-        
-      contactsEl.remove()
-      return
-    }
-    if (e.target.classList.contains(EDIT_BTN_CLASS)) {
-      fillForm(contacts)
-      return
-    }
+    $contactEl[FIRST_FORM].remove()
+    return
   }
 }
 
-function getContactsEl(el) {
-    return el.closest(CONTACTS_ITEM_SELECTOR)
+function onEditBtnClick() {
+  const $contactEl = getContactEl($(this))
+  const id = String(getContactId($contactEl))
+  const contact = contactsList.find(contactItem => contactItem.id === id)
+
+  if (contact) {
+    fillForm(contact)
+    return
+  }  
 }
 
-function getContactsId(contactsEl) {
-  return contactsEl.dataset.id
+function getContactEl($el) {
+    return $el.closest(CONTACTS_ITEM_SELECTOR)
 }
 
-function fillForm(contacts) {
-  $idInput[FIRST_FORM].value = contacts.id
-  $inputName[FIRST_FORM].value = contacts.firstName
-  $inputSurname[FIRST_FORM].value = contacts.lastName
-  $inputPhone[FIRST_FORM].value = contacts.phone
+function getContactId($contactEl) {
+  return $contactEl.data('id')
+}
+
+function fillForm(contact) {
+  $idInput[FIRST_FORM].value = contact.id
+  $inputName[FIRST_FORM].value = contact.firstName
+  $inputSurname[FIRST_FORM].value = contact.lastName
+  $inputPhone[FIRST_FORM].value = contact.phone
   dialog.dialog("open")
 }
 
@@ -138,7 +142,7 @@ function saveContacts(contacts) {
     const contactsOld = contactsList.find(contactsI => contactsI.id === contacts.id)
       contactsOld.firstName = contacts.firstName
       contactsOld.lastName = contacts.lastName
-      contactsOld.phone =contacts.phone
+      contactsOld.phone = contacts.phone
 
     replaceContactsElById(contacts.id, contacts)
   } else {
