@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>22-modal</title>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="./dz22.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"
+      defer
+    ></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" defer></script>
+    <script src="./StickersApi.js" defer></script>
+    <script src="./dz22.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>js-pro-homework-22</h1>
+      <h2>stickers board + modal window</h2>
+    </header>
+    <main id="main">
+      <div id="board">
+        <button id="addBtn">Add Note</button>
+        <hr />
+        <div id="stickersContainer"></div>
+      </div>
+      <div id="dialog-form" title="Save contact">
+        <p class="validateTips">All form fields are required.</p>
+
+        <form id="descriptionForm">
+          <fieldset>
+            <label for="description">Description</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              placeholder="your text"
+              class="text ui-widget-content ui-corner-all"
+            /><br /><br />
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input
+              type="submit"
+              tabindex="-1"
+              style="position: absolute; top: -1000px"
+            />
+          </fieldset>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
