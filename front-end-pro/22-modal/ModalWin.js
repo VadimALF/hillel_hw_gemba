@@ -30,6 +30,7 @@ class ModalWin {
   open() {
     this.#dialog.dialog( "open" )
   }
+  
   clear() {
   $descriptionForm[FIRST_FORM].reset()
   this.#dialog.dialog( "close" )
