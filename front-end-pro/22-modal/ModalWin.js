@@ -1,12 +1,8 @@
 class ModalWin {
-  static INPUT_SELECTOR = 'input, textarea';
-
   #dialog;
-  #$inputs;
 
-  constructor(modalElSelector, saveData) {
-    this.#$inputs = $(ModalWin.INPUT_SELECTOR);
-    this.#dialog = $("#dialog-form").dialog({
+  constructor(modalElSelector) {
+    this.#dialog = $(modalElSelector).dialog({
       autoOpen: false,
       height: 400,
       width: 350,
@@ -33,8 +29,11 @@ class ModalWin {
 
   }
 
+  open() {
+    this.#dialog.dialog( "open" )
+  }
   clear() {
   $descriptionForm[FIRST_FORM].reset()
   this.#dialog.dialog( "close" )
-}
+  }
 }

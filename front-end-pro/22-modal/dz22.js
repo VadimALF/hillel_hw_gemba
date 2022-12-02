@@ -12,6 +12,7 @@ const FIRST_FORM = 0
 const EMPTY_NOTE = {
   description: '',
 }
+const modal = new ModalWin("#dialogForm")
 
 const $stickersBoard = $(BOARD_SELECTOR)
 const $addBtn = $(ADD_BTN)
@@ -21,31 +22,6 @@ const $stickersContainer = $(STICKERS_CONTAINER)
 const $descriptionForm = $(DESCRIPTION_FORM)
 const $description = $(DESCRIPTION)
 
-const dialog = $( "#dialog-form" ).dialog({
-        autoOpen: false,
-        height: 400,
-        width: 350,
-        modal: true,
-        buttons: {
-          "Save": () => {
-            const stiker = { description: $description[FIRST_FORM].value }
-            alert (stiker)
-            StickersApi.createSticker(stiker)
-              
-              .then(stickers => getStickers(stickers))
-
-              .catch(showError)
-            clear()
-          },
-          Cancel: function () {
-            clear()
-          },
-          Close: function () {
-            clear()
-          }
-        }
-      })
-
 $stickersBoard
     .on('click', ADD_BTN, onAddBtnClick)
     .on('click', DEL_BTN_CLASS, onDelBtnClick)
@@ -54,7 +30,7 @@ $stickersBoard
 getStickers()
 
 function onAddBtnClick(e) {
-    dialog.dialog("open")
+    modal.open()
 }
 
 function onDelBtnClick(e) {
@@ -106,9 +82,4 @@ function showError(error) {
 
 function getStickerId(el) {
     return el.closest(STICKER_SELECTOR).dataset.id
-}
-
-function clear() {
-  $descriptionForm[FIRST_FORM].reset()
-  dialog.dialog( "close" )
 }
