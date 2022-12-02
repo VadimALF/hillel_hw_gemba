@@ -11,7 +11,7 @@ class ModalWin {
         "Save": () => {
           const stiker = { description: $description[FIRST_FORM].value }
           StickersApi.createSticker(stiker)
-            .then(stickers => getStickers(stickers))
+            .then(getStickers())
 
             .catch(showError)
           this.clear()

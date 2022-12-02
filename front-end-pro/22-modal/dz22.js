@@ -30,7 +30,7 @@ $stickersBoard
 getStickers()
 
 function onAddBtnClick(e) {
-    modal.open()
+  modal.open()
 }
 
 function onDelBtnClick(e) {
