@@ -10,18 +10,16 @@ class ModalWin {
       buttons: {
         "Save": () => {
           const stiker = { description: $description[FIRST_FORM].value }
-          alert(stiker)
           StickersApi.createSticker(stiker)
-              
             .then(stickers => getStickers(stickers))
 
             .catch(showError)
           this.clear()
         },
-        Cancel: function () {
+        Cancel: () => {
           this.clear()
         },
-        Close: function () {
+        Close: () => {
           this.clear()
         }
       }
